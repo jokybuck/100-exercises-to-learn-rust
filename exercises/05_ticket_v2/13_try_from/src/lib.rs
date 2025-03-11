@@ -8,6 +8,31 @@ enum Status {
     Done,
 }
 
+impl TryFrom<&str> for Status {
+    type Error = ();
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        let val = value.to_string().to_lowercase();
+        match val.as_str() {
+            "todo" => Ok(Status::ToDo),
+            "inprogress" => Ok(Status::InProgress),
+            "done" => Ok(Status::Done),
+            _ => Err(())
+        }
+    }
+}
+
+impl TryFrom<String> for Status {
+    type Error = ();
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        match value.to_lowercase() {
+            val if val == "todo".to_string() => Ok(Status::ToDo),
+            val if val == "inprogress".to_string() => Ok(Status::InProgress),
+            val if val ==  "done".to_string() => Ok(Status::Done),
+            _ => Err(())
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
