@@ -37,6 +37,10 @@ impl TicketStore {
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
     }
+
+    pub fn into_iter(&self) -> <Vec<Ticket> as IntoIterator>::IntoIter {
+        self.tickets.clone().into_iter()
+    }
 }
 
 #[cfg(test)]
